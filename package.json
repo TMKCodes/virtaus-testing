@@ -39,18 +39,5 @@
   "devDependencies": {
     "jest": "^27.5.1"
   },
-  "jest": {
-    "preset": "react-scripts",
-    "testEnvironment": "jsdom",
-    "reporters": [
-      "default",
-      [
-        "jest-junit",
-        {
-          "outputDirectory": "./artifacts/",
-          "outputName": "junit.xml"
-        }
-      ]
-    ]
-  }
+  "testResultsProcessor": "jest-junit"
 }
