@@ -1,33 +1,6 @@
-version: '3.8'
+version: '1.0'
 
-image: virtaus-testing
-
-services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    environment:
-      NODE_ENV: development
-    command: npm start
-
-  test:
-    build: .
-    command: npm test
-
-  cypress:
-    build: .
-    command: npm run cypress
-
-  selenium:
-    image: selenium/standalone-chrome
-
-  e2e:
-    build: .
-    command: npm run e2e
+container: none
 
 before_script:
   - npm install
@@ -37,25 +10,31 @@ stages:
   - test
   - deploy
 
-cache:
-  paths:
-    - node_modules/
-
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
-
-script:
-  build:
-    script:
-      - docker-compose build --pull
-    artifacts:
-      paths:
-        - build/
-      expire_in: 1 week
+build:
+  images: 
+    virtaus-testing:
+      build: .
+      ports:
+        - "3000:3000"
+      volumes: 
+        - .:/app
+        - /app/node_modules
+      environment: 
+        NODE_ENV: production
   test:
-    script:
-      - docker-compose run --rm test
-  deploy:
-    script:
-      - echo "Deploying..."
+    build: .
+    command: npm test
+  script:
+    - docker-compose build --pull
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1 week
+
+test:
+  script:
+    - docker-compose run --rm test
+
+deploy:
+  script:
+    - echo "Deploying..."
