@@ -34,7 +34,7 @@ build:
 
 test:
   script:
-    - npm run test --env=jsdom --watchAll=false --ci --testLocationInResults --json --outputFile=artifacts/test-results.json
+    - npm run test --env=jsdom --watchAll=false --ci --testLocationInResults --json --outputFile=./artifacts/test-results.json
   artifacts:
     - ./artifacts/test-results.json
 
