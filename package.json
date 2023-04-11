@@ -40,6 +40,7 @@
     "jest": "^27.5.1"
   },
   "jest": {
+    "preset": "react-scripts",
     "testEnvironment": "jsdom",
     "reporters": [
       "default",
