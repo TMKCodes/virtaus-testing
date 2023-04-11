@@ -34,7 +34,7 @@ build:
 
 test:
   script:
-    - npm run test -- --json --outputFile=./artifacts/test-results.json
+    - npm run test --
   artifacts:
     paths: 
       - ./artifacts/test-results.json
