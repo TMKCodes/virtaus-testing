@@ -1,35 +1,59 @@
-image: docker:latest
+version: '3.8'
 
 services:
-  docker:dind
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+    command: npm start
+
+  test:
+    build: .
+    command: npm test
+
+  cypress:
+    build: .
+    command: npm run cypress
+
+  selenium:
+    image: selenium/standalone-chrome
+
+  e2e:
+    build: .
+    command: npm run e2e
+
+before_script:
+  - npm install
 
 stages:
   - build
   - test
   - deploy
 
+cache:
+  paths:
+    - node_modules/
+
 variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
 
-before_script:
-  - apk add --update nodejs npm
-
-build:
-  stage: build
-  script:
-    - docker-compose build --pull
-  artifacts:
-    paths:
-      - build/
-    expire_in: 1 week
-
-test:
-  stage: test
-  script:
-    - docker-compose run --rm test
-
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploying..."
+script:
+  build:
+    script:
+      - docker-compose build --pull
+    artifacts:
+      paths:
+        - build/
+      expire_in: 1 week
+  test:
+    script:
+      - docker-compose run --rm test
+  deploy:
+    script:
+      - echo "Deploying..."
