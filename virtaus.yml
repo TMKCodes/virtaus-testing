@@ -11,21 +11,22 @@ stages:
   - deploy
 
 build:
-  images: 
-    virtaus-testing:
-      build: .
-      ports:
-        - "3000:3000"
-      volumes: 
-        - .:/app
-        - /app/node_modules
-      environment: 
-        NODE_ENV: production
-  test:
-    build: .
-    command: npm test
+  # images: 
+  #   virtaus-testing:
+  #     build: .
+  #     ports:
+  #       - "3000:3000"
+  #     volumes: 
+  #       - .:/app
+  #       - /app/node_modules
+  #     environment: 
+  #       NODE_ENV: production
+  # test:
+  #   build: .
+  #   command: npm test
   script:
-    - docker-compose build --pull
+    - npm install
+    - npm run build
   artifacts:
     paths:
       - build/
@@ -33,7 +34,7 @@ build:
 
 test:
   script:
-    - docker-compose run --rm test
+    - npm run test
 
 deploy:
   script:
