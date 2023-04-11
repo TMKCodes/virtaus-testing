@@ -1,0 +1,35 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+before_script:
+  - apk add --update nodejs npm
+
+build:
+  stage: build
+  script:
+    - docker-compose build --pull
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1 week
+
+test:
+  stage: test
+  script:
+    - docker-compose run --rm test
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying..."
