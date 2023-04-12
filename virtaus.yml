@@ -33,9 +33,9 @@ build:
 
 test:
   framework: jest
-  resultsFile: ./artifacts/test-results.xml
+  resultsFile: ./artifacts/test-results.json
   script:
-    - npm run test -- --outputFile=./artifacts/test-results.xml
+    - npm run test -- --json --outputFile=./artifacts/test-results.json
 
 deploy:
   script:
