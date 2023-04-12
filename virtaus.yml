@@ -25,21 +25,16 @@ build:
   #   build: .
   #   command: npm test
   script:
-    - npm install
     - npm run build
   artifacts:
     paths:
       - ./build/
-      - ./artifacts/build-artifacts.json
     expire_in: 1 week
 
 test:
   script:
-    - npm run test --
-  artifacts:
-    paths: 
-      - ./artifacts/test-artifacts.json
-    expire_in: 1 week
+    - npm run test -- --json --outputFile=./artifacts/test-results.json
+  results: ./artifacts/test-results.json
 
 deploy:
   script:
