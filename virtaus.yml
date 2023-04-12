@@ -29,7 +29,8 @@ build:
     - npm run build
   artifacts:
     paths:
-      - build/
+      - ./build/
+      - ./artifacts/build-artifacts.json
     expire_in: 1 week
 
 test:
@@ -37,7 +38,7 @@ test:
     - npm run test --
   artifacts:
     paths: 
-      - ./artifacts/test-results.json
+      - ./artifacts/test-artifacts.json
     expire_in: 1 week
 
 deploy:
