@@ -32,9 +32,10 @@ build:
     expire_in: 1 week
 
 test:
+  framework: jest
+  resultsFile: ./artifacts/test-results.json
   script:
     - npm run test -- --json --outputFile=./artifacts/test-results.json
-  results: ./artifacts/test-results.json
 
 deploy:
   script:
