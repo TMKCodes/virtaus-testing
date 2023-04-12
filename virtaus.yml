@@ -25,6 +25,7 @@ build:
   #   build: .
   #   command: npm test
   script:
+    - npm install
     - npm run build
   artifacts:
     paths:
